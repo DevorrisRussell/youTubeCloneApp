@@ -22,7 +22,15 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:commentId', async (req, res) => {
+    const comment = await Comment.findByIdAndUpdate(req.params.commentId,
+        {
+            comment: req.body.comment
+        },
+        {new: true}
+        );
 
+});
 
 
 
