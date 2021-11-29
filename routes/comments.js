@@ -8,14 +8,18 @@ router.get('/:videoId', async (req, res) => {
     return res.send(comments);
 });
 
-router.post('/', async (req, res) => {
-    const replies = new Reply ({
+router.post('/:commentId/replies', async (req, res) => {
+    let comment = await Comment.findById(req.params.commentId);
+
+    const reply = new Reply ({
         text: req.body.text,
         replies: req.body.replies
 
     });
-    await replies.save();
-    return res.send(replies);
+    comment.replies.push(reply);
+
+    await comment.save();
+    return res.send(comment);
 })
 
 router.post('/', async (req, res) => {
@@ -35,11 +39,11 @@ router.post('/', async (req, res) => {
 router.put('/:commentId', async (req, res) => {
     const comment = await Comment.findByIdAndUpdate(req.params.commentId,
         {
-            comment: req.body.comment
+            ...req.body
         },
         {new: true}
         );
-
+    return res.send(comment);
 }); 
 
 
