@@ -9,6 +9,16 @@ router.get('/:videoId', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    const replies = new Reply ({
+        text: req.body.text,
+        replies: req.body.replies
+
+    });
+    await replies.save();
+    return res.send(replies);
+})
+
+router.post('/', async (req, res) => {
     try {
         const comment = new Comment({
             text: req.body.text,
@@ -30,7 +40,7 @@ router.put('/:commentId', async (req, res) => {
         {new: true}
         );
 
-});
+}); 
 
 
 
