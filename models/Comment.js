@@ -1,5 +1,3 @@
-
-
 const mongoose = require('mongoose');
 
 const replySchema = new mongoose.Schema({
@@ -15,9 +13,6 @@ const commentSchema = new mongoose.Schema(
     likes: { type: Number, default: 0},
     dislikes: { type: Number, default: 0},
     replies: {type: [replySchema],default: []}
-
-
-
     }
 );
 

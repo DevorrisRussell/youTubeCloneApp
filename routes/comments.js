@@ -2,6 +2,11 @@ const {Reply, Comment} = require('../models/Comment');
 const express = require('express');
 const router = express.Router();
 
+router.get('/:videoId', async (req, res) => {
+
+    const comments = await Comment.find({videoId: req.params.videoId});
+    return res.send(comments);
+});
 
 router.post('/', async (req, res) => {
     try {
@@ -16,6 +21,10 @@ router.post('/', async (req, res) => {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
 });
+
+
+
+
 
 
 module.exports = router;
